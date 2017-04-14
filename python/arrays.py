@@ -63,6 +63,24 @@ def shufflearray(array):
         array[index], array[ri] = array[ri], array[index]
     return array
 
+def maxprofit(array):
+    """
+    Finds max profit in sequence of stock prices in linear time
+    :param array: array of stock price
+    :return: max profit
+    """
+    print("Stocks", end=" ")
+    print(array)
+    profit = array[1] - array[0]
+    mmin = array[0]
+    for idx in range(1, len(array)):
+        current_profit = array[idx] - mmin
+        profit = max(profit, current_profit)
+        mmin = min(array[idx], mmin)
+
+    return profit
+
+
 if __name__ == '__main__':
     array = [6,7,8,9,10,0, 1,2,3,4,5]
     print("Index of minimal element is", end=" ")
@@ -71,3 +89,5 @@ if __name__ == '__main__':
     print(shiftarray(array,6))
     print("Shuffling array", end=" ")
     print(shufflearray(array))
+    print("Max profit", end=" ")
+    print(maxprofit(array))
