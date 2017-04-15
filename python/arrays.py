@@ -69,8 +69,6 @@ def maxprofit(array):
     :param array: array of stock price
     :return: max profit
     """
-    print("Stocks", end=" ")
-    print(array)
     profit = array[1] - array[0]
     mmin = array[0]
     for idx in range(1, len(array)):
@@ -80,6 +78,24 @@ def maxprofit(array):
 
     return profit
 
+def maxsumsubarray(array):
+    """
+    :param array: array of int
+    :return: continuous subarray with maximum sum
+    """
+    maxglobal = array[0]
+    startidx = 0
+    endidx = 0
+    for idx in range(1, len(array)):
+        if maxglobal + array[idx] < array[idx]:
+            maxglobal = array[idx]
+            startidx = idx
+            endidx = idx
+        else:
+            maxglobal = maxglobal + array[idx]
+            endidx = idx
+
+    return array[startidx:endidx+1]
 
 if __name__ == '__main__':
     array = [6,7,8,9,10,0, 1,2,3,4,5]
@@ -91,3 +107,5 @@ if __name__ == '__main__':
     print(shufflearray(array))
     print("Max profit", end=" ")
     print(maxprofit(array))
+    print("Max subarray with biggest sum", end=" ")
+    print(maxsumsubarray(array))
