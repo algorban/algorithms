@@ -103,6 +103,60 @@ def treespirallevels(tree):
                 level +=1
     return result
 
+def _leftnodes(tree, nodes = []):
+    """
+    Utility function hat returns leftmost nodes of binary tree
+    :param tree: binary tree
+    :return: list of nodes
+    """
+    if tree:
+        if tree.left is not None or tree.right is not None:
+            nodes.append(tree.data)
+        if tree.left:
+            _leftnodes(tree.left, nodes)
+        else:
+            _leftnodes(tree.right, nodes)
+
+def _rightnodes(tree, nodes = []):
+    """
+    Utility function hat returns rightmost nodes of binary tree
+    :param tree: binary tree
+    :return: list of nodes
+    """
+    if tree:
+        if tree.left is not None or tree.right is not None:
+            nodes.insert(0, tree.data)
+        if tree.right:
+            _rightnodes(tree.right, nodes)
+        else:
+            _rightnodes(tree.left, nodes)
+
+def _leafnodes(tree, nodes = []):
+    """
+    Utility function hat returns leaf nodes of binary tree
+    :param tree: binary tree
+    :return: list of nodes
+    """
+    if tree:
+        if tree.left is None and tree.right is None:
+            nodes.append(tree.data)
+        _leafnodes(tree.left, nodes)
+        _leafnodes(tree.right, nodes)
+
+def treeboundaries(tree):
+    """
+    :param tree: binary tree
+    :return: list of tree boundary elements (anticlockwise)
+    """
+    left = []
+    right = []
+    leaves = []
+    _leftnodes(tree,left)
+    _leafnodes(tree, leaves)
+    _rightnodes(tree, right)
+    del(right[-1])
+    return left + leaves + right
+
 def createtree(preorder, inorder):
     """
     Creates Tree from given Inorder and Preorder traversals
@@ -181,5 +235,8 @@ if __name__ == '__main__':
     print("Path to element 11 from root", end=" ")
     print(findpath(tree, 11))
 
-    print("path between 8 and 11", end=" ")
+    print("Path between 8 and 11", end=" ")
     print(pathbetweennodes(tree, 8, 11))
+
+    print("Tree boundaries anticlockwise ", end=" ")
+    print(treeboundaries(tree))
