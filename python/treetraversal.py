@@ -206,6 +206,20 @@ def pathbetweennodes(tree, start, end):
 
     return list(reversed(pathtostart[idx-1:])) + pathtoend[idx:]
 
+
+def _diameterh(tree):
+    if tree is None:
+        return 0, 0
+    ld, lh = _diameterh(tree.left)
+    rd, rh = _diameterh(tree.right)
+    return max(lh + rh + 1, ld, rd ), max(lh, rh) + 1
+
+
+def diameter(tree):
+    d, _ = _diameterh(tree)
+    return d
+
+
 if __name__ == '__main__':
     tree = inittree()
     print("Preorder traversal", end=" ")
@@ -240,3 +254,7 @@ if __name__ == '__main__':
 
     print("Tree boundaries anticlockwise ", end=" ")
     print(treeboundaries(tree))
+
+    print("Diameter of the tree", end=" ")
+    print(diameter(tree))
+    assert 7 == diameter(tree)
