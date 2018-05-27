@@ -21,6 +21,12 @@ class List:
         self.head = node
         self.size += 1
 
+    def peak(self):
+        if self.size > 0:
+            return self.head.data
+        else:
+            return None
+
     def reverse(self):
         prev_node = None
         current = self.head
@@ -59,10 +65,13 @@ class List:
         return element
 
 if __name__ == '__main__':
+
     llist = List()
 
     for i in range(10,0,-1):
         llist.add(i)
+
+    print(llist.peak())
 
     assert 6 == llist.lastnth(5)
     llist.reverse()

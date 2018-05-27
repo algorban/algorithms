@@ -24,5 +24,35 @@ def lcc(str):
         return None
 
 
+def lengthOfLongestSubstring(s):
+        """
+        Given a string, find the length of the longest consecutive substring without repeating characters.
+        :type s: str
+        :rtype: int
+        """
+        idx = 0
+        cache ={}
+        maxlength = 0
+        current_length = 0
+        start_pos = 0
+        while idx < len(s):
+            if s[idx] not in cache:
+                cache[s[idx]] = idx
+                current_length += 1
+            else:
+                maxlength = max(current_length, maxlength)
+                next_start = cache[s[idx]]+1
+                for i in range(start_pos, cache[s[idx]]+1):
+                    del cache[s[i]]
+                    current_length -= 1
+                start_pos = next_start
+                cache[s[idx]] = idx
+                current_length += 1
+            idx += 1
+        maxlength = max(current_length, maxlength)
+        return maxlength
+
 char, count = lcc("ABAACDDDBBA")
 print("Char is {}, length is {}".format(char, count))
+
+print("Max length of consecutive substring of string {} is {}".format("ABAACDDDBBA", lengthOfLongestSubstring("ABAACDDDBBA")))
