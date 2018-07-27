@@ -5,6 +5,11 @@ class Node:
         self.data = data
         self.left = self.right = None
 
+    def __str__(self):
+        return str(self.data)
+
+    __repr__ = __str__
+
 
 def inittree():
     tree = Node(1)
@@ -220,6 +225,48 @@ def diameter(tree):
     return d
 
 
+def tree2dls(node, next=None):
+    """
+    :param node: node of binary tree
+    :param next: next element(tail)
+    :return: head to doubly linked list(inorder traversal)
+    """
+    if node is None:
+        return next
+    node.right = tree2dls(node.right, next);
+    if node.right:
+        node.right.left = node
+    return tree2dls(node.left, node)
+
+
+def tree2dlsi(node):
+    """
+    :param node: pointer to the binary tree root
+    :return: pointer to the doubly linked list(inorder traversal)
+    """
+    head = None
+    stack = []
+    done = 0
+    current = node
+    while not done:
+        if current is not None:
+            stack.append(current)
+            current = current.right
+        else:
+            if len(stack) > 0:
+                current = stack.pop()
+                if head is None:
+                    head = current
+                else:
+                    current.right = head
+                    head.left = current
+                    head = current
+                current = current.left
+            else:
+                done = 1
+    return head
+
+
 if __name__ == '__main__':
     tree = inittree()
     print("Preorder traversal", end=" ")
@@ -258,3 +305,18 @@ if __name__ == '__main__':
     print("Diameter of the tree", end=" ")
     print(diameter(tree))
     assert 7 == diameter(tree)
+
+    head = tree2dls(tree)
+
+    print("DLS: ", end=" ")
+    while head:
+        print(head, end=" ")
+        head = head.right
+    print()
+
+    tree = inittree()
+    head = tree2dlsi(tree)
+    print("DLS: ", end=" ")
+    while head:
+        print(head, end=" ")
+        head = head.right
