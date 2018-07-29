@@ -40,6 +40,7 @@ def preorder(tree):
     else:
         return []
 
+
 def inorder(tree):
     """
     :param tree: binary tree
@@ -50,6 +51,7 @@ def inorder(tree):
     else:
         return []
 
+
 def postorder(tree):
     """
     :param tree: binary tree
@@ -59,6 +61,7 @@ def postorder(tree):
         return postorder(tree.left) + postorder(tree.right) + [tree.data]
     else:
         return []
+
 
 def treelevels(tree):
     """
@@ -76,6 +79,7 @@ def treelevels(tree):
         if node.right is not None:
             queue.append(node.right)
     return result
+
 
 def treespirallevels(tree):
     """
@@ -108,6 +112,7 @@ def treespirallevels(tree):
                 level +=1
     return result
 
+
 def _leftnodes(tree, nodes = []):
     """
     Utility function hat returns leftmost nodes of binary tree
@@ -121,6 +126,7 @@ def _leftnodes(tree, nodes = []):
             _leftnodes(tree.left, nodes)
         else:
             _leftnodes(tree.right, nodes)
+
 
 def _rightnodes(tree, nodes = []):
     """
@@ -136,6 +142,7 @@ def _rightnodes(tree, nodes = []):
         else:
             _rightnodes(tree.left, nodes)
 
+
 def _leafnodes(tree, nodes = []):
     """
     Utility function hat returns leaf nodes of binary tree
@@ -147,6 +154,7 @@ def _leafnodes(tree, nodes = []):
             nodes.append(tree.data)
         _leafnodes(tree.left, nodes)
         _leafnodes(tree.right, nodes)
+
 
 def treeboundaries(tree):
     """
@@ -161,6 +169,7 @@ def treeboundaries(tree):
     _rightnodes(tree, right)
     del(right[-1])
     return left + leaves + right
+
 
 def createtree(preorder, inorder):
     """
@@ -179,6 +188,7 @@ def createtree(preorder, inorder):
     else:
         return None
 
+
 def findpath(tree, element):
     """
     :param tree: binary tree
@@ -195,6 +205,7 @@ def findpath(tree, element):
         if len(rightlist) > 0:
             return [tree.data] + rightlist
     return []
+
 
 def pathbetweennodes(tree, start, end):
     """

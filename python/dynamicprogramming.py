@@ -52,12 +52,11 @@ def coinchange(coins, amount):
             elif i == 0:
                 am[i][j] = 0
             else:
-                if coins[i-1] <= j :
+                if coins[i-1] <= j:
                     am[i][j] = am[i-1][j] + am[i][j - coins[i-1]]
                 else:
                     am[i][j] = am[i - 1][j]
     return am[len(coins)][amount]
-
 
 
 if __name__ == '__main__':

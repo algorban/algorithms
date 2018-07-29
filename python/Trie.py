@@ -33,7 +33,6 @@ class Trie:
         currentnode.word = word
 
 
-
 if __name__ == '__main__':
     trie = Trie()
     trie.insert("test")

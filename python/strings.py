@@ -24,7 +24,7 @@ def lcc(str):
         return None
 
 
-def lengthOfLongestSubstring(s):
+def length_of_longest_substring(s):
         """
         Given a string, find the length of the longest consecutive substring without repeating characters.
         :type s: str
@@ -55,4 +55,4 @@ def lengthOfLongestSubstring(s):
 char, count = lcc("ABAACDDDBBA")
 print("Char is {}, length is {}".format(char, count))
 
-print("Max length of consecutive substring of string {} is {}".format("ABAACDDDBBA", lengthOfLongestSubstring("ABAACDDDBBA")))
+print("Max length of consecutive substring of string {} is {}".format("ABAACDDDBBA", length_of_longest_substring("ABAACDDDBBA")))
