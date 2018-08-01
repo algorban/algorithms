@@ -114,6 +114,23 @@ def max_sum_subarray(array):
     return array[startidx:endidx + 1]
 
 
+# recursive powerset
+def powerset1(array):
+    if len(array) == 0:
+        return [[]]
+    include = [[array[0]] + subset for subset in powerset1(array[1:])]
+    exclude = powerset1(array[1:])
+    return include + exclude
+
+
+# iterative
+def powerset2(array):
+    result = [[]]
+    for element in array:
+        result = [[element] + subset for subset in result] + result
+    return result
+
+
 if __name__ == '__main__':
     array = [6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5]
     print("Index of minimal element is", end=" ")
@@ -128,3 +145,7 @@ if __name__ == '__main__':
     print(max_sum_subarray(array))
     print("Maximum Sum of Non-adjacent Elements", end=" ")
     print(max_sum_of_non_adjacent_elements([1, 0, 3, 9, 2]))
+    print("Powerset recursive: ", end = " ")
+    print(powerset1([1,2,3]))
+    print("Powerset iterative: ", end=" ")
+    print(powerset2([1, 2, 3]))
