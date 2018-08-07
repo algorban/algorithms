@@ -58,6 +58,49 @@ def coinchange(coins, amount):
                     am[i][j] = am[i - 1][j]
     return am[len(coins)][amount]
 
+# Given an input string (s) and a pattern (p), implement regular expression matching with support for '.' and '*'.
+#
+# '.' Matches any single character.
+# '*' Matches zero or more of the preceding element.
+# The matching should cover the entire input string (not partial).
+#
+# Note:
+#
+# s could be empty and contains only lowercase letters a-z.
+# p could be empty and contains only lowercase letters a-z, and characters like . or *.
+#
+# Examples:
+# s = 'a', p = 'aa' => False
+# s = 'a', p = 'a*' => True
+# s = 'ab', p = '.*' => True
+# s = 'aab',p = 'c*a*b*' => True
+
+
+def is_match(s, p):
+    """
+    :type s: str
+    :type p: str
+    :rtype: bool
+    """
+    if p is None and s is None:
+        return True
+    mp = [[False for j in range(0, len(p) + 1)] for i in range(0, len(s) + 1)]
+    mp[0][0] = True
+    for j in range(1, len(p) + 1):
+        if p[j - 1] == "*":
+            mp[0][j] = mp[0][j - 2]
+    for i in range(1, len(s) + 1):
+        for j in range(1, len(p) + 1):
+            if s[i - 1] == p[j - 1] or p[j - 1] == '.':
+                mp[i][j] = mp[i - 1][j - 1]
+            elif p[j - 1] == '*':
+                mp[i][j] = mp[i][j - 2]
+                if p[j - 2] == "." or p[j - 2] == s[i - 1]:
+                    mp[i][j] = mp[i - 1][j] or mp[i][j]
+            else:
+                mp[i][j] = False
+    return mp[len(s)][len(p)]
+
 
 if __name__ == '__main__':
     assert len(lcs("abcdgtr", "agybtcydik")) == 4

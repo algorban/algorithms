@@ -278,6 +278,17 @@ def tree2dlsi(node):
     return head
 
 
+def create_btree_from_array(array):
+    if len(array) > 0:
+        idx = (len(array)-1)//2
+        node = Node(array[idx])
+        node.left = create_btree_from_array(array[:idx])
+        node.right = create_btree_from_array(array[idx+1:])
+        return node
+    else:
+        return None
+
+
 if __name__ == '__main__':
     tree = inittree()
     print("Preorder traversal", end=" ")
@@ -331,3 +342,11 @@ if __name__ == '__main__':
     while head:
         print(head, end=" ")
         head = head.right
+
+    print()
+    array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    tree = create_btree_from_array(array)
+    print("Inorder traverse of recently created tree from sorted array: ", end = " ")
+    print(inorder(tree))
+    print()
+    print(treelevels(tree))
