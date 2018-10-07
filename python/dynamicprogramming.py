@@ -102,6 +102,28 @@ def is_match(s, p):
     return mp[len(s)][len(p)]
 
 
+def perfect_sum(array, sum):
+    """
+    :param array: list of numbers
+    :param sum: amount
+    :return: number of subsets which elements add up to given sum
+    """
+    array = sorted(array)
+    dp = [[0 for j in range(0, sum+1)] for i in range(0, len(array)+1)]
+
+    for i in range(0, len(array)+1):
+        dp[i][0] = 1
+
+    for j in range(1, sum+1):
+        for i in range(1, len(array)+1):
+            if array[i-1] <= j:
+                dp[i][j] = dp[i-1][j] + dp[i-1][j-array[i-1]]
+            else:
+                dp[i][j] = dp[i-1][j]
+
+    return dp[len(array)][sum]
+
+
 if __name__ == '__main__':
     assert len(lcs("abcdgtr", "agybtcydik")) == 4
     print("Longest common subsequence of 'abcdgtr' and 'agybtcydik' is ", end=" ")
@@ -109,3 +131,6 @@ if __name__ == '__main__':
     assert coinchange([1,2,3], 5) == 5
     print("Number of ways to make a change for 5 using [1,2,3] coins ", end=" ")
     print(coinchange([1,2,3], 5))
+    assert perfect_sum([2,4,6,10], 15) == 0
+    assert perfect_sum([1,2,3,4,5], 10) == 3
+

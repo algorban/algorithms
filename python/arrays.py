@@ -131,6 +131,39 @@ def powerset2(array):
     return result
 
 
+def is_hoppable(array):
+    """
+    Tower Hopper Problem
+    Value at particular index represent max number of steps one can jump over
+    Find if there is a way to ump from index 0 out of the array
+    :param array: array of integers
+    :return: True or False
+    """
+    index = 0
+    while True:
+        if index >= len(array):
+            return True
+        if array[index] == 0:
+            return False
+        index = next_step(index, array)
+
+
+def next_step(index, array):
+    """
+    Helper function to find next optimal step
+    :param index: start index
+    :param array: array of integers
+    :return: return next optimal index(step) in the array
+    """
+    next_index = 0
+    mmax = 0
+    for i in range(1, array[index]):
+        if array[index+i] > mmax:
+            mmax = array[index+i]
+            next_index = index+i
+    return next_index
+
+
 if __name__ == '__main__':
     array = [6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5]
     print("Index of minimal element is", end=" ")
@@ -149,3 +182,4 @@ if __name__ == '__main__':
     print(powerset1([1,2,3]))
     print("Powerset iterative: ", end=" ")
     print(powerset2([1, 2, 3]))
+    assert is_hoppable([4,2,0,0,2,0]) == True
