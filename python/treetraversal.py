@@ -130,7 +130,7 @@ def _leftnodes(tree, nodes = []):
 
 def _rightnodes(tree, nodes = []):
     """
-    Utility function hat returns rightmost nodes of binary tree
+    Utility function that returns rightmost nodes of binary tree
     :param tree: binary tree
     :return: list of nodes
     """
