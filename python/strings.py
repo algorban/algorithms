@@ -12,7 +12,6 @@ def lcc(str):
         for i in range(1,len(str)):
             if str[i] == prev:
                 count += 1
-                prev = str[i]
             else:
                 if count > max_count:
                     max_count = count

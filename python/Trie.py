@@ -8,7 +8,7 @@ class _Node:
         self.word = None
         self.size = 0
 
-    def getchild(self, char):
+    def get_child(self, char):
         if char in self.children.keys():
             return self.children[char]
         else:
@@ -21,16 +21,16 @@ class Trie:
         self.trie = _Node("*")
 
     def insert(self, word):
-        currentnode = self.trie
+        current_node = self.trie
         for char in word:
-            nextnode = currentnode.getchild(char)
-            if nextnode is None:
-                nextnode = _Node(char)
-                currentnode.children[char] = nextnode
-            nextnode.size += 1
-            currentnode = nextnode
-        currentnode.is_word = True
-        currentnode.word = word
+            next_node = current_node.get_child(char)
+            if next_node is None:
+                next_node = _Node(char)
+                current_node.children[char] = next_node
+            next_node.size += 1
+            current_node = next_node
+        current_node.is_word = True
+        current_node.word = word
 
 
 if __name__ == '__main__':
