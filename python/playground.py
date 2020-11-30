@@ -1,20 +1,32 @@
-from common import Graph
+import statistics
 
-import functools
-def compare(a,b):
-    return a[0] - b[0]
-intervals = [[1,3], [8,10], [2,5], [7,8], [3,4]]
-intervals.sort(key = functools.cmp_to_key(compare))
+def partition(left, right, array):
+    pivot = array[right]
+    i, j = left, left
+    while j < right:
+        if array[j] < pivot:
+            array[i], array[j] = array[j], array[i]
+            i += 1
+        j += 1
+    array[i], array[right] = array[right], array[i]
+    return i
 
-print(intervals)
-g = Graph.build_digraph(intervals)
-print(g)
-stocks = [5,8,3,4,9,7,8]
-N = len(stocks)
-mmin = mmax = stocks[0]
-max_profit = 0
-for i in range(N):
-    mmax = max(mmax, stocks[i])
-    max_profit = max(max_profit, stocks[i] - mmin)
-    mmin = min(mmin, stocks[i])
-print(max_profit)
+def find_median(array):
+    N = len(array)
+    start = 0
+    end = N-1
+    expected_pivot = (N-1)//2
+    pivot = partition(start, end, array)
+    while expected_pivot != pivot:
+        if pivot > expected_pivot:
+            pivot = partition(start, pivot-1, array)
+        else:
+            pivot = partition(pivot + 1, end, array)
+    if N % 2 == 1:
+        return array[pivot]
+    else:
+        return (array[pivot] + min(array[pivot+1:]))/2
+
+array = [6,8,2,9,3,1,10,34,12,8,4]
+print(find_median(array))
+print(statistics.median(array))
