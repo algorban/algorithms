@@ -1,32 +1,55 @@
-import statistics
+def min_deletions(string):
+    """
+    We are given a string SS of length NN consisting only of letters A and/or B. Our goal is to obtain a string in the
+    format A...AB...B. (all letters A occur before all letters B) by deleting some letters from SS. In particular,
+    strings consisting only of letters A or only of letters B fit this format.
 
-def partition(left, right, array):
-    pivot = array[right]
-    i, j = left, left
-    while j < right:
-        if array[j] < pivot:
-            array[i], array[j] = array[j], array[i]
-            i += 1
-        j += 1
-    array[i], array[right] = array[right], array[i]
-    return i
+    Write a function that, given a string SS, return the minimum number of letters that need to be deleted from SS in
+    order to obtain a string in the above format.
 
-def find_median(array):
-    N = len(array)
-    start = 0
-    end = N-1
-    expected_pivot = (N-1)//2
-    pivot = partition(start, end, array)
-    while expected_pivot != pivot:
-        if pivot > expected_pivot:
-            pivot = partition(start, pivot-1, array)
+    Example:
+        Input: "BAAABAB"
+        Output: 2
+        Explanation: We can obtain "AAABB" by deleting the first occurrence of 'B' and the last occurrence of 'A'.
+    """
+    min_deletions, left_b = 0, 0
+    if not string:
+        return min_deletions
+
+    for e in string:
+        if e == 'A':
+            min_deletions = min(left_b, min_deletions + 1)
         else:
-            pivot = partition(pivot + 1, end, array)
-    if N % 2 == 1:
-        return array[pivot]
-    else:
-        return (array[pivot] + min(array[pivot+1:]))/2
+            left_b += 1
 
-array = [6,8,2,9,3,1,10,34,12,8,4]
-print(find_median(array))
-print(statistics.median(array))
+    return min_deletions
+
+#s = "BBABAA"
+#print(min_deletions(s))
+
+
+def binary_concat(number):
+    result = 0
+    shift = 0
+    while number > 0:
+        tmp = number
+        tmp = tmp << shift
+        result = tmp | result
+        tmp = number
+        while tmp > 0:
+            tmp = tmp >> 1
+            shift += 1
+        number -= 1
+    return result
+
+print(binary_concat(3))
+
+
+def digits_sum(n):
+    _sum = 0
+    while n > 0:
+        _sum += n % 10
+        n = n // 10
+    return _sum
+
+print(digits_sum(92))

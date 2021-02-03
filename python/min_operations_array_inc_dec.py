@@ -21,7 +21,7 @@ class Solution:
         dp = [[0 for i in range(large + 1)]
               for i in range(n)]
 
-        # Fill the dp[]][ array for base cases
+        # Fill the dp[][] array for base cases
         for j in range(small, large + 1):
             dp[0][j] = abs(ar[0] - j)
         """ 

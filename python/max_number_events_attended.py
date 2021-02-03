@@ -1,4 +1,4 @@
-import heapq
+import heapq as hq
 class Solution(object):
     """
     Leetcode 1353. Maximum Number of Events That Can Be Attended
@@ -17,19 +17,40 @@ class Solution(object):
     Attend the third event on day 3.
     """
     def maxEvents(self, A):
-        A.sort(reverse=1)
-        h = []
-        res = d = 0
-        while A or h:
-            if not h: d = A[-1][0]
-            while A and A[-1][0] <= d:
-                heapq.heappush(h, A.pop()[1])
-            heapq.heappop(h)
-            res += 1
-            d += 1
-            while h and h[0] < d:
-                heapq.heappop(h)
-        return res
+        """
+        :type events: List[List[int]]
+        :rtype: int
+        """
+        if len(events) < 2:
+            return len(events)
+        events.sort()
+        total_days = max([day[1] for day in events])
+
+        day, attended, event_id = 1, 0, 0
+        min_heap = []
+        while day <= total_days:
+
+            # if there are no events in backlog, skip to the nearest start date
+            if event_id < len(events) and not min_heap:
+                day = events[event_id][0]
+
+            # pushing into backlog events with start date <= day
+            while event_id < len(events) and events[event_id][0] <= day:
+                hq.heappush(min_heap, events[event_id][1])
+                event_id += 1
+
+            # discard events that already ended
+            while min_heap and min_heap[0] < day:
+                hq.heappop(min_heap)
+
+            # attend event with the earliest end date
+            if min_heap:
+                hq.heappop(min_heap)
+                attended += 1
+
+            day += 1
+
+        return attended
 
 
 if __name__ == '__main__':

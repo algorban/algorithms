@@ -36,5 +36,8 @@ class Trie:
 if __name__ == '__main__':
     trie = Trie()
     trie.insert("test")
-    print("test")
+    trie.insert("letter")
+    trie.insert("leet")
+    trie.insert("leetcode")
+    print("")
 
